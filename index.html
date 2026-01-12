@@ -44,18 +44,22 @@
     <script>
       const audio = document.getElementById("player");
       const btn = document.getElementById("btn");
-
+    
       btn.addEventListener("click", async () => {
         if (audio.paused) {
-          try { await audio.play(); btn.textContent = "Pause"; }
-          catch { btn.textContent = "Tap to Play"; }
+          try { await audio.play(); btn.classList.add("pause"); btn.setAttribute("aria-label","Pause"); }
+          catch {}
         } else {
           audio.pause();
-          btn.textContent = "Play";
+          btn.classList.remove("pause");
+          btn.setAttribute("aria-label","Play");
         }
       });
-
-      audio.addEventListener("ended", () => (btn.textContent = "Play"));
+    
+      audio.addEventListener("ended", () => {
+        btn.classList.remove("pause");
+        btn.setAttribute("aria-label","Play");
+      });
     </script>
   </body>
 </html>
