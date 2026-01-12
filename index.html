@@ -1,1 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>One Image + Audio</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: white;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+      .wrap { text-align: center; padding: 24px; }
+      img { max-width: min(90vw, 900px); height: auto; display: block; margin: 0 auto 16px; }
+      button { padding: 10px 16px; font-size: 16px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <img src="image.jpg" alt="Image" />
+      <audio id="player" src="audio.mp3" preload="auto"></audio>
+      <button id="btn">Play</button>
+    </div>
 
+    <script>
+      const audio = document.getElementById("player");
+      const btn = document.getElementById("btn");
+
+      btn.addEventListener("click", async () => {
+        if (audio.paused) {
+          try { await audio.play(); btn.textContent = "Pause"; }
+          catch { btn.textContent = "Tap to Play"; }
+        } else {
+          audio.pause();
+          btn.textContent = "Play";
+        }
+      });
+
+      audio.addEventListener("ended", () => (btn.textContent = "Play"));
+    </script>
+  </body>
+</html>
